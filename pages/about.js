@@ -3,7 +3,7 @@ import Footer from "../Components/Footer";
 
 function about() {
   return (
-    <div>
+    <div className="min-h-screen">
       <Navbar />
       <div className="max-w-2xl pt-32 pb-32 px-6 text-center mx-auto">
         <h2 className="text-3xl font-semibold text-gray-800">

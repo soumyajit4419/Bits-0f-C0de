@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@lyket/react": "^1.4.7",
     "@tailwindcss/typography": "^0.4.1",
     "gray-matter": "^4.0.3",
     "markdown-to-txt": "^1.0.1",

@@ -16,3 +16,7 @@
   background: #6264f3 !important;
   border-radius: 5px !important;
 }
+
+button:focus {
+  outline: 0 !important;
+}

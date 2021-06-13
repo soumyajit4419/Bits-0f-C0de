@@ -4,8 +4,9 @@ import { MDXRemote } from "next-mdx-remote";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
 import { BsThreeDots } from "react-icons/bs";
+import { FaTwitter } from "react-icons/fa";
 import Head from "next/head";
-import { Provider, LikeButton, ClapButton } from "@lyket/react";
+import LikeBtn from "../../Components/LikeBtn";
 
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
@@ -40,7 +41,10 @@ function id({ data, content, api_key }) {
     <>
       <Head>
         <title>{data.Title}</title>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@soumyajit4419" />
       </Head>
+
       <div className="min-h-screen relative">
         <Navbar />
         <div className="py-24">
@@ -74,8 +78,13 @@ function id({ data, content, api_key }) {
                 <article className="prose lg:prose-lg py-7">
                   <MDXRemote {...content} />
                 </article>
-                <div className="mt-4">
+
+                <div className="mt-3">
                   <div className="flex items-center flex-col">
+                    <p className="text-5xl pb-2">
+                      <BsThreeDots />
+                    </p>
+                    <p className="text-2xl pb-2">Thanks for reading!!!</p>
                     <p className="mx-2 font-semibold text-gray-700">
                       {data.Author}
                     </p>
@@ -84,38 +93,23 @@ function id({ data, content, api_key }) {
                     </p>
                   </div>
                 </div>
+                <LikeBtn api_key={api_key} data={data} />
               </div>
-            </div>
-            <div className="justify-center p-6 flex flex-row">
-              <Provider apiKey={api_key}>
-                <div className="p-4">
-                  <LikeButton
-                    namespace="Blog-like"
-                    id={String(data.Id)}
-                    component={LikeButton.templates.Twitter}
-                    className="focus:outline-none"
-                  />
-                </div>
-
-                <div className="p-4 self-center">
-                  <ClapButton
-                    namespace="Blog-clap"
-                    id={String(data.Id)}
-                    component={ClapButton.templates.Heart}
-                    className="focus:outline-none"
-                  />
-                </div>
-              </Provider>
             </div>
           </div>
 
-          <div className="text-center pt-3">
-            <button className="bg-blue-500 m-3">
+          <div className="text-center pt-5">
+            <button className="bg-indigo-500 px-3 py-1 font-semibold text-white inline-flex items-center space-x-2 rounded">
+              <FaTwitter />
               <a
                 className="twitter-share-button"
                 rel="noopener noreferrer"
                 target="_blank"
-                href={`https://twitter.com/intent/tweet?text=${data.Title}`}
+                href={`https://twitter.com/intent/tweet?text=${
+                  data.Title
+                } by @soumyajit4419&url=https://blogs.soumyajit.tech/blogs/${
+                  data.Id
+                }&hashtags=${data.Tags.split(" ")}`}
               >
                 Tweet
               </a>

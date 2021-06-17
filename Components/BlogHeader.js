@@ -1,5 +1,4 @@
 import { AiOutlineArrowRight } from "react-icons/ai";
-import markdownToTxt from "markdown-to-txt";
 import Link from "next/link";
 
 function BlogHeader({ data, content }) {
@@ -11,12 +10,14 @@ function BlogHeader({ data, content }) {
       <h2 className="sm:text-2xl text-xl title-font font-semibold text-gray-700 mt-4 mb-4">
         {data.Title}
       </h2>
-      <p className="leading-relaxed mb-5 text-gray-700">
-        {markdownToTxt(content.substr(0, 200))}..
-      </p>
+      <p className="leading-relaxed mb-5 text-gray-800">{data.Abstract}..</p>
 
       <div className="flex items-center flex-wrap pb-2 border-b-2 border-gray-200 mt-auto w-full justify-between">
-        <Link href={`/blogs/${String(data.Id)}`}>
+        <Link
+          href={`/blogs/${String(
+            data.Title.split(" ").join("-").toLowerCase()
+          )}`}
+        >
           <a className="text-indigo-700 inline-flex items-center">
             Learn More{" "}
             <span className="pl-1">

@@ -10,7 +10,11 @@ import Comments from "../../Components/Comments";
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
   return {
-    paths: allBlogs.map((blog) => ({ params: { id: String(blog.data.Id) } })),
+    paths: allBlogs.map((blog) => ({
+      params: {
+        id: String(blog.data.Title.split(" ").join("-").toLowerCase()),
+      },
+    })),
     fallback: false,
   };
 };
@@ -19,7 +23,10 @@ export const getStaticProps = async (context) => {
   const params = context.params;
   const allBlogs = getAllBlogPosts();
 
-  const page = allBlogs.find((blog) => String(blog.data.Id) === params.id);
+  const page = allBlogs.find(
+    (blog) =>
+      String(blog.data.Title.split(" ").join("-").toLowerCase()) === params.id
+  );
 
   const { data, content } = page;
   const mdxSource = await serialize(content, { scope: data });

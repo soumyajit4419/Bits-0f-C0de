@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function BlogHeader({ data, content }) {
   return (
-    <div className="px-6 py-6 md:px-10 md:w-1/2 flex flex-col items-start rounded">
+    <div className="px-6 py-6 md:px-10 md:w-1/2 flex flex-col items-start rounded transform hover:scale-105">
       <span className="inline-block py-1 px-2 rounded bg-gray-100 text-indigo-700 text-sm font-medium tracking-widest">
         {data.Tags.split(" ")[0]}
       </span>

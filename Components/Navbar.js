@@ -20,12 +20,12 @@ function Navbar() {
   };
 
   return (
-    <header className="fixed w-full shadow border-t-4 border-indigo-600 bg-white dark:bg-gray-900 dark:border-gray-700">
+    <header className="fixed w-full border-t-4 bg-white dark:bg-gray-900 border-indigo-600 dark:border-indigo-900 shadow dark:shadow-2">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
             <Link href="/">
-              <a className="flex items-center text-gray-800 hover:text-indigo-600 dark:text-gray-50">
+              <a className="flex items-center hover:text-indigo-600 text-gray-800 dark:text-gray-50">
                 <span className="text-xl font-semibold">
                   <BiTerminal />
                 </span>
@@ -42,7 +42,7 @@ function Navbar() {
               onClick={toggleTheme}
             >
               <span className="text-lg">
-                {theme === "dark" ? <BiMoon /> : <BiSun />}
+                {isMounted && theme === "dark" ? <BiMoon /> : <BiSun />}
               </span>
             </button>
 

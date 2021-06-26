@@ -1,4 +1,4 @@
-const { spacing, fontFamily } = require('tailwindcss/defaultTheme');
+const { spacing, fontFamily } = require("tailwindcss/defaultTheme");
 
 module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./Components/**/*.{js,ts,jsx,tsx}"],
@@ -6,8 +6,11 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      boxShadow: {
+        2: "0 1px 3px 0 rgb(11 17 29 / 98%), 0 1px 2px 0 rgb(9 18 35 / 90%)",
+      },
       fontFamily: {
-        sans: ['Inter', ...fontFamily.sans]
+        sans: ["Inter", ...fontFamily.sans],
       },
       typography: (theme) => ({
         DEFAULT: {
@@ -74,6 +77,7 @@ module.exports = {
   variants: {
     extend: {
       typography: ["dark"],
+      boxShadow: ["dark"],
     },
   },
   plugins: [require("@tailwindcss/typography")],

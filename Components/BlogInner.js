@@ -17,7 +17,7 @@ function BlogInner({ data, content, api_key }) {
             {data.Tags.split(" ").map((tag) => (
               <p
                 key={tag}
-                className="inline-block px-3 ml-3 py-1 mb-4 text-xs font-semibold tracking-wider text-gray-50 uppercase rounded-full bg-indigo-500"
+                className="inline-block px-3 ml-3 py-1 mb-4 text-xs font-semibold tracking-wider text-gray-50 uppercase rounded-full bg-indigo-500 dark:bg-indigo-600"
               >
                 {tag}
               </p>
@@ -41,7 +41,9 @@ function BlogInner({ data, content, api_key }) {
                 <BsThreeDots />
               </p>
               <p className="text-2xl pb-2">Thanks for reading!!!</p>
-              <p className="mx-2 font-semibold text-gray-700 dark:text-gray-100">{data.Author}</p>
+              <p className="mx-2 font-semibold text-gray-700 dark:text-gray-100">
+                {data.Author}
+              </p>
               <p className="text-sm font-medium leading-4 text-gray-600 dark:text-gray-200">
                 Author
               </p>

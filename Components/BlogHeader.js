@@ -7,10 +7,10 @@ function BlogHeader({ data, content }) {
       <span className="inline-block py-1 px-2 rounded bg-gray-100 text-indigo-700 text-sm font-medium tracking-widest">
         {data.Tags.split(" ")[0]}
       </span>
-      <h2 className="sm:text-2xl text-xl title-font font-semibold text-gray-700 mt-4 mb-4">
+      <h2 className="sm:text-2xl text-xl title-font font-semibold text-gray-700 mt-4 mb-4 dark:text-gray-50 ">
         {data.Title}
       </h2>
-      <p className="leading-relaxed mb-5 text-gray-800">{data.Abstract}..</p>
+      <p className="leading-relaxed mb-5 text-gray-800 dark:text-gray-100">{data.Abstract}..</p>
 
       <div className="flex items-center flex-wrap pb-2 border-b-2 border-gray-200 mt-auto w-full justify-between">
         <Link

@@ -51,7 +51,7 @@ function id({ data, content, api_key }) {
         <meta name="twitter:site" content="@soumyajit4419" />
       </Head>
 
-      <div className="min-h-screen relative">
+      <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <Navbar />
         <div className="py-24">
           <BlogInner data={data} content={content} api_key={api_key} />

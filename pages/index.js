@@ -20,7 +20,7 @@ export default function Home({ blogs }) {
       <Head>
         <title>Bits-0f-C0de</title>
       </Head>
-      <div className="min-h-screen relative">
+      <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <Navbar />
         <Header />
 

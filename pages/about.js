@@ -4,7 +4,7 @@ import { FaLaptop, FaTwitter } from "react-icons/fa";
 
 function about() {
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative bg-white dark:bg-gray-900">
       <Navbar />
       <div className="max-w-2xl pt-20 pb-32 px-6 text-center mx-auto">
         <div className="h-64 w-full justify-center flex">

@@ -33,7 +33,10 @@ export default function Home({ blogs }) {
           property="og:description"
           content="Writing your own blogs made easier for everyone!"
         />
-        <meta property="og:image" content="" />
+        <meta
+          property="og:image"
+          content="https://github.com/soumyajit4419/Bits-0f-C0de/blob/main/Extra/sc.png"
+        />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://blogs.soumyajit.tech/" />
@@ -42,9 +45,12 @@ export default function Home({ blogs }) {
           property="twitter:description"
           content="Writing your own blogs made easier for everyone!"
         />
-        <meta property="twitter:image" content="" />
+        <meta
+          property="twitter:image"
+          content="https://github.com/soumyajit4419/Bits-0f-C0de/blob/main/Extra/sc.png"
+        />
       </Head>
-      
+
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <Navbar />
         <Header />

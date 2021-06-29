@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import readingTime from "reading-time";
 
 const dir = path.join(process.cwd(), "_content");
 
@@ -12,7 +13,8 @@ export const getAllBlogPosts = () => {
     const filePath = path.join(dir, file);
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data, content } = matter(fileContent);
-    allBlogs.push({ data, content });
+    const readTime = readingTime(content);
+    allBlogs.push({ data, content, readTime });
   });
 
   return allBlogs;

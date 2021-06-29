@@ -1,13 +1,13 @@
 ## Bits-0f-C0de
 
-### Writing own blogs made easier for everyone!
+## Writing own blogs made easier for everyone!
 
 <h2 align="center">
-  <a href="http://soumyajit.tech/" target="_blank">soumyajit.tech</a>
+  <a href="http://blogs.soumyajit.tech/" target="_blank">blogs.soumyajit.tech</a>
 </h2>
 
 <div align="center">
-  <img alt="Demo" src="./Images/readme-img1.png" />
+  <img alt="Demo" src="./Extra/demo.gif" />
 </div>
 
 <br/>
@@ -27,10 +27,6 @@
     <a href="https://github.com/soumyajit4419/Bits-0f-C0de/issues">Request Feature</a>
 </h3>
 
-## TL;DR
-
-Thanks!
-
 ## Built With
 
 My personal blogpage <a href="http://blogs.soumyajit.tech/" target="_blank">blogs.soumyajit.tech</a> which features some of my developer blog posts and experiences.<br/>
@@ -39,17 +35,19 @@ This project was built using these technologies.
 
 - Next.js
 - Tailwind Css
+- Dark mode support
 - VsCode
 - Vercel
 
 ## Features
 
+**🌙 Dark Mode**
+
 **📃 Markdown Support**
 
-**✏️ Easy to Write posts of your own**
+**✏️ Easy to customize and write posts of your own**
 
 **🎨 Styled with Tailwind Css**
-
 
 ## Getting Started
 
@@ -71,8 +69,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Usage Instructions
 
-Open the project folder and Navigate to `/src/components/`. <br/>
-You will find all the components used and you can edit your information accordingly.
+To write your own blogs create a markdown file in `_content` folder with the specified format. 
 
 ### Show your support
 

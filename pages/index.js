@@ -32,6 +32,7 @@ export default function Home({ blogs }) {
                   key={blog.data.Id}
                   data={blog.data}
                   content={blog.content}
+                  readTime={blog.readTime.text}
                 />
               ))}
           </div>

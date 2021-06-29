@@ -20,10 +20,14 @@ export default function Home({ blogs }) {
       <Head>
         <title>Bits-0f-C0de</title>
 
-        <meta name="title" content="Bits-0f-C0de🚀" />
+        <meta itemprop="name" content="Bits-0f-C0de🚀" />
         <meta
-          name="description"
+          itemprop="description"
           content="Writing your own blogs made easier for everyone!"
+        />
+        <meta
+          itemprop="image"
+          content="http://raw.githubusercontent.com/soumyajit4419/Bits-0f-C0de/main/Extra/sc.png"
         />
 
         <meta property="og:type" content="website" />
@@ -38,15 +42,14 @@ export default function Home({ blogs }) {
           content="https://raw.githubusercontent.com/soumyajit4419/Bits-0f-C0de/main/Extra/sc.png"
         />
 
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://blogs.soumyajit.tech/" />
-        <meta property="twitter:title" content="Bits-0f-C0de🚀" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Bits-0f-C0de🚀" />
         <meta
-          property="twitter:description"
+          name="twitter:description"
           content="Writing your own blogs made easier for everyone!"
         />
         <meta
-          property="twitter:image"
+          name="twitter:image"
           content="https://raw.githubusercontent.com/soumyajit4419/Bits-0f-C0de/main/Extra/sc.png"
         />
       </Head>

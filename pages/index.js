@@ -19,7 +19,32 @@ export default function Home({ blogs }) {
     <>
       <Head>
         <title>Bits-0f-C0de</title>
+
+        <meta name="title" content="Bits-0f-C0de🚀" />
+        <meta
+          name="description"
+          content="Writing your own blogs made easier for everyone!"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://blogs.soumyajit.tech/" />
+        <meta property="og:title" content="Bits-0f-C0de🚀" />
+        <meta
+          property="og:description"
+          content="Writing your own blogs made easier for everyone!"
+        />
+        <meta property="og:image" content="" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://blogs.soumyajit.tech/" />
+        <meta property="twitter:title" content="Bits-0f-C0de🚀" />
+        <meta
+          property="twitter:description"
+          content="Writing your own blogs made easier for everyone!"
+        />
+        <meta property="twitter:image" content="" />
       </Head>
+      
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <Navbar />
         <Header />

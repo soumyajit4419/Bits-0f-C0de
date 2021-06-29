@@ -47,8 +47,6 @@ function id({ data, content, api_key }) {
     <>
       <Head>
         <title>{data.Title}</title>
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@soumyajit4419" />
       </Head>
 
       <div className="min-h-screen relative bg-white dark:bg-gray-900">

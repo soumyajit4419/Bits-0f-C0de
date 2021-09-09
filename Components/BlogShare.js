@@ -12,9 +12,11 @@ function BlogShare({ data }) {
             target="_blank"
             href={`https://twitter.com/intent/tweet?text=${
               data.Title
-            } by @soumyajit4419&url=https://blogs.soumyajit.tech/blogs/${
-              data.Id
-            }&hashtags=${data.Tags.split(" ")}`}
+            } by @soumyajit4419
+            &url=blogs.soumyajit.tech/blogs/${String(
+              data.Title.split(" ").join("-").toLowerCase()
+            )}
+            &hashtags=${data.Tags.split(" ")}`}
           >
             Tweet
           </a>

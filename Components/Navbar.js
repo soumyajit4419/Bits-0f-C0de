@@ -42,7 +42,7 @@ function Navbar() {
               onClick={toggleTheme}
             >
               <span className="text-lg">
-                {isMounted && theme === "dark" ? <BiMoon /> : <BiSun />}
+                {isMounted && theme === "dark" ? <BiSun/> : <BiMoon />}
               </span>
             </button>
 

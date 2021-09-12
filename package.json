@@ -10,6 +10,7 @@
   "dependencies": {
     "@lyket/react": "^1.4.7",
     "@tailwindcss/typography": "^0.4.1",
+    "firebase": "^9.0.2",
     "gray-matter": "^4.0.3",
     "markdown-to-txt": "^1.0.1",
     "next": "10.2.3",

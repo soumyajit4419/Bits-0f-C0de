@@ -3,10 +3,16 @@ import { checkAuth } from "../Lib/CheckAuth";
 import Alert from "./Alert";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../Firebase/Firebase";
+import useSWR, { SWRConfig } from "swr";
 
-function Comments({ id, comments, refresh }) {
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+function Comments({ id }) {
   const [comment, setComment] = useState("");
   const [viewAlert, setViewAlert] = useState(false);
+
+  const { data, error } = useSWR(`/api/post/${id}`, fetcher);
+  console.log(data, error, "sdds");
 
   const handelPost = async (e) => {
     e.preventDefault();
@@ -35,7 +41,6 @@ function Comments({ id, comments, refresh }) {
 
       const ref = collection(db, "posts", id, "comments");
       const docRef = await addDoc(ref, docData);
-      refresh();
     }
   };
 
@@ -78,8 +83,9 @@ function Comments({ id, comments, refresh }) {
       </div>
       <div className="mx-auto max-w-screen-md">
         <div className="m-2 md:m-0">
-          {comments &&
-            comments.map((comment) => (
+          {data &&
+            data.comments &&
+            data.comments.map((comment) => (
               <div className="space-y-4 py-3" key={comment.id}>
                 <div className="flex">
                   <div className="flex-shrink-0 mr-1.5 md:mr-3">

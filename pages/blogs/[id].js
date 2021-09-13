@@ -6,23 +6,20 @@ import Head from "next/head";
 import BlogInner from "../../Components/BlogInner";
 import BlogShare from "../../Components/BlogShare";
 import Comments from "../../Components/Comments";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import { db } from "../../Firebase/Firebase";
-import { useRouter } from "next/router";
 
-// export const getStaticPaths = () => {
-//   const allBlogs = getAllBlogPosts();
-//   return {
-//     paths: allBlogs.map((blog) => ({
-//       params: {
-//         id: String(blog.data.Title.split(" ").join("-").toLowerCase()),
-//       },
-//     })),
-//     fallback: false,
-//   };
-// };
+export const getStaticPaths = () => {
+  const allBlogs = getAllBlogPosts();
+  return {
+    paths: allBlogs.map((blog) => ({
+      params: {
+        id: String(blog.data.Title.split(" ").join("-").toLowerCase()),
+      },
+    })),
+    fallback: false,
+  };
+};
 
-export const getServerSideProps = async (context) => {
+export const getStaticProps = async (context) => {
   const params = context.params;
   const allBlogs = getAllBlogPosts();
 
@@ -30,21 +27,6 @@ export const getServerSideProps = async (context) => {
     (blog) =>
       String(blog.data.Title.split(" ").join("-").toLowerCase()) === params.id
   );
-
-  const res = [];
-  const docRef = collection(db, "posts", params.id, "comments");
-  const q = query(docRef, orderBy("date", "desc"));
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    const data = {
-      id: doc.id,
-      comment: doc.data().comment,
-      userName: doc.data().userName,
-      userImage: doc.data().userImage,
-      date: doc.data().date.toDate().toDateString(),
-    };
-    res.push(data);
-  });
 
   const { data, content } = page;
   const mdxSource = await serialize(content, { scope: data });
@@ -57,18 +39,11 @@ export const getServerSideProps = async (context) => {
       content: mdxSource,
       api_key: api_key,
       id: params.id,
-      comments: res,
     },
   };
 };
 
-function id({ data, content, api_key, id, comments }) {
-  const router = useRouter();
-
-  const refreshData = () => {
-    router.replace(router.asPath);
-  };
-
+function id({ data, content, api_key, id }) {
   return (
     <>
       <Head>
@@ -100,7 +75,7 @@ function id({ data, content, api_key, id, comments }) {
         <div className="py-24">
           <BlogInner data={data} content={content} api_key={api_key} />
           <BlogShare data={data} />
-          <Comments id={id} comments={comments} refresh={refreshData} />
+          <Comments id={id} />
           <Footer />
         </div>
       </div>

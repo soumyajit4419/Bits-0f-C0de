@@ -12,7 +12,6 @@ function Comments({ id }) {
   const [viewAlert, setViewAlert] = useState(false);
 
   const { data, error } = useSWR(`/api/post/${id}`, fetcher);
-  console.log(data, error, "sdds");
 
   const handelPost = async (e) => {
     e.preventDefault();
@@ -102,9 +101,11 @@ function Comments({ id }) {
                     <span className="text-xs text-gray-500 dark:text-gray-400">
                       {comment.date.split(" ").slice(1, 4).join("-")}
                     </span>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      {comment.comment}
-                    </p>
+                    {comment.comment.split("\n").map((com, index) => (
+                      <p className="text-sm text-gray-600 dark:text-gray-300" key={index}>
+                        {com}
+                      </p>
+                    ))}
                   </div>
                 </div>
               </div>

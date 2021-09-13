@@ -6,6 +6,7 @@ import Head from "next/head";
 import BlogInner from "../../Components/BlogInner";
 import BlogShare from "../../Components/BlogShare";
 import Comments from "../../Components/Comments";
+import { SWRConfig } from "swr";
 
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
@@ -75,7 +76,14 @@ function id({ data, content, api_key, id }) {
         <div className="py-24">
           <BlogInner data={data} content={content} api_key={api_key} />
           <BlogShare data={data} />
-          <Comments id={id} />
+          <SWRConfig
+            value={{
+              refreshInterval: 1000,
+            }}
+          >
+            <Comments id={id} />
+          </SWRConfig>
+
           <Footer />
         </div>
       </div>

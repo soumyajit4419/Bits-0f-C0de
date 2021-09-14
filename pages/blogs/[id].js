@@ -7,6 +7,7 @@ import BlogInner from "../../Components/BlogInner";
 import BlogShare from "../../Components/BlogShare";
 import Comments from "../../Components/Comments";
 import { SWRConfig } from "swr";
+import headingId from "remark-heading-id";
 
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
@@ -30,7 +31,10 @@ export const getStaticProps = async (context) => {
   );
 
   const { data, content } = page;
-  const mdxSource = await serialize(content, { scope: data });
+  const mdxSource = await serialize(content, {
+    scope: data,
+    mdxOptions: { remarkPlugins: [headingId] },
+  });
 
   const api_key = process.env.API_KEY;
 

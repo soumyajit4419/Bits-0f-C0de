@@ -93,7 +93,7 @@ function Navbar() {
 
             <div className="flex items-center -mx-2">
               <button
-                className="flex items-center mx-2 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50"
+                className="flex items-center mx-2 lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50"
                 onClick={toggleTheme}
               >
                 <span className="text-lg">
@@ -106,7 +106,7 @@ function Navbar() {
               </button>
 
               <a
-                className="flex items-center mx-2 text-gray-800 hover:text-indigo-600 dark:text-gray-50"
+                className="flex items-center mx-2 lg:mx-4 text-gray-800 hover:text-indigo-600 dark:text-gray-50"
                 href="https://github.com/soumyajit4419"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -116,7 +116,7 @@ function Navbar() {
                 </span>
               </a>
 
-              <button className="flex items-center mx-2 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50">
+              <button className="flex items-center mx-2 lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50">
                 <span className="text-lg">
                   {isLogin ? (
                     <IoLogOutOutline
@@ -133,7 +133,7 @@ function Navbar() {
               </button>
 
               <Link href="/about">
-                <a className="flex items-center mx-2 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50">
+                <a className="flex items-center mx-2  lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50">
                   <span className="text-xl ">
                     <SiAboutDotMe className="text-xl" />
                   </span>

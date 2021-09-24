@@ -26,8 +26,12 @@ button:focus {
   outline: 0 !important;
 }
 
-@media (max-width:1180px) {
+@media (max-width: 1180px) {
   .toc {
     display: none;
   }
+}
+
+.toc-inner {
+  max-height: calc(100vh - 25vh);
 }

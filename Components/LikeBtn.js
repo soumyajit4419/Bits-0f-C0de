@@ -5,7 +5,7 @@ function LikeBtn({ api_key, data }) {
   const { theme } = useTheme();
 
   return (
-    <div className="justify-center p-6 flex flex-row">
+    <div className="justify-center pt-6 pb-2 flex flex-row">
       <Provider
         apiKey={api_key}
         theme={{

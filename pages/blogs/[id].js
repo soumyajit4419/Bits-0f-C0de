@@ -8,6 +8,8 @@ import BlogShare from "../../Components/BlogShare";
 import Comments from "../../Components/Comments";
 import { SWRConfig } from "swr";
 import headingId from "remark-heading-id";
+import { getHeadings } from "../../Lib/GetHeadings";
+import LikeBtn from "../../Components/LikeBtn";
 
 export const getStaticPaths = () => {
   const allBlogs = getAllBlogPosts();
@@ -36,6 +38,8 @@ export const getStaticProps = async (context) => {
     mdxOptions: { remarkPlugins: [headingId] },
   });
 
+  const headings = await getHeadings(content);
+
   const api_key = process.env.API_KEY;
 
   return {
@@ -44,11 +48,12 @@ export const getStaticProps = async (context) => {
       content: mdxSource,
       api_key: api_key,
       id: params.id,
+      headings: headings,
     },
   };
 };
 
-function id({ data, content, api_key, id }) {
+function id({ data, content, api_key, id, headings }) {
   return (
     <>
       <Head>
@@ -78,8 +83,10 @@ function id({ data, content, api_key, id }) {
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
         <Navbar />
         <div className="py-24">
-          <BlogInner data={data} content={content} api_key={api_key} />
+          <BlogInner data={data} content={content} headings={headings} />
+          <LikeBtn api_key={api_key} data={data} />
           <BlogShare data={data} />
+
           <SWRConfig
             value={{
               refreshInterval: 1000,

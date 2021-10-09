@@ -3,7 +3,7 @@ import { checkAuth } from "../Lib/CheckAuth";
 import Alert from "./Alert";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "../Firebase/Firebase";
-import useSWR, { SWRConfig } from "swr";
+import useSWR, { useSWRConfig } from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -11,6 +11,7 @@ function Comments({ id }) {
   const [comment, setComment] = useState("");
   const [viewAlert, setViewAlert] = useState(false);
 
+  const { mutate } = useSWRConfig();
   const { data, error } = useSWR(`/api/post/${id}`, fetcher);
 
   const handelPost = async (e) => {
@@ -40,6 +41,7 @@ function Comments({ id }) {
 
       const ref = collection(db, "posts", id, "comments");
       const docRef = await addDoc(ref, docData);
+      mutate(`/api/post/${id}`);
     }
   };
 
@@ -102,7 +104,10 @@ function Comments({ id }) {
                       {comment.date.split(" ").slice(1, 4).join("-")}
                     </span>
                     {comment.comment.split("\n").map((com, index) => (
-                      <p className="text-sm text-gray-600 dark:text-gray-300" key={index}>
+                      <p
+                        className="text-sm text-gray-600 dark:text-gray-300"
+                        key={index}
+                      >
                         {com}
                       </p>
                     ))}

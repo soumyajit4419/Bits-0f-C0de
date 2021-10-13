@@ -2,8 +2,8 @@ import db from "../../../Firebase/Firebase-admin";
 
 export default async (req, res) => {
   const { pid } = req.query;
-  const citiesRef = db.collection("posts").doc(pid).collection("comments");
-  const snapshot = await citiesRef.orderBy("date", "desc").get();
+  const commentsRef = db.collection("posts").doc(pid).collection("comments");
+  const snapshot = await commentsRef.orderBy("date", "desc").get();
   const comments = [];
   snapshot.forEach((doc) => {
     const data = {

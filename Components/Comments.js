@@ -12,7 +12,7 @@ function Comments({ id }) {
   const [viewAlert, setViewAlert] = useState(false);
 
   const { mutate } = useSWRConfig();
-  const { data, error } = useSWR(`/api/post/${id}`, fetcher);
+  const { data, error } = useSWR(`/api/comments/${id}`, fetcher);
 
   const handelPost = async (e) => {
     e.preventDefault();

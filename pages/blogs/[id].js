@@ -40,7 +40,6 @@ export const getStaticProps = async (context) => {
 
   const headings = await getHeadings(content);
 
-
   return {
     props: {
       data: data,
@@ -51,7 +50,7 @@ export const getStaticProps = async (context) => {
   };
 };
 
-function id({ data, content, api_key, id, headings }) {
+function id({ data, content, id, headings }) {
   return (
     <>
       <Head>
@@ -82,7 +81,7 @@ function id({ data, content, api_key, id, headings }) {
         <Navbar />
         <div className="py-24">
           <BlogInner data={data} content={content} headings={headings} />
-          {/* <LikeBtn api_key={api_key} data={data} /> */}
+          <LikeBtn id={id}/>
           <BlogShare data={data} />
 
           <SWRConfig>

@@ -1,38 +1,56 @@
-import { Provider, LikeButton, ClapButton } from "@lyket/react";
+import { useState } from "react";
 import { useTheme } from "next-themes";
+import useSWR, { useSWRConfig } from "swr";
+import { AiOutlineHeart, AiFillHeart, AiOutlineLoading } from "react-icons/ai";
 
-function LikeBtn({ api_key, data }) {
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+function LikeBtn({ id }) {
   const { theme } = useTheme();
 
-  return (
-    <div className="justify-center pt-6 pb-2 flex flex-row">
-      <Provider
-        apiKey={api_key}
-        theme={{
-          colors: {
-            icon: "#7e7c7c",
-            text: theme == "dark" ? "#d1d5db" : "black",
-          },
-        }}
-      >
-        <div className="p-4">
-          <LikeButton
-            namespace="Blog-like"
-            id={String(data.Id)}
-            component={LikeButton.templates.Twitter}
-            className="focus:outline-none"
-          />
-        </div>
+  const [loading, setLoading] = useState(false);
+  const { mutate } = useSWRConfig();
+  const { data, error } = useSWR(`/api/likes/${id}`, fetcher);
 
-        <div className="p-4 self-center">
-          <ClapButton
-            namespace="Blog-clap"
-            id={String(data.Id)}
-            component={ClapButton.templates.Heart}
-            className="focus:outline-none"
-          />
-        </div>
-      </Provider>
+  const handelClick = async () => {
+    setLoading(true);
+    const response = await fetch("/api/like-blog", {
+      method: "POST",
+      body: JSON.stringify({ id }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 200) {
+      mutate(`/api/likes/${id}`);
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="justify-center pt-16 pb-6 flex flex-row items-center">
+      {loading ? (
+        <AiOutlineLoading
+          className="animate-spin"
+          style={{ fontSize: "1.5rem" }}
+        />
+      ) : (
+        <>
+          <button onClick={handelClick} disabled={loading ? true : false}>
+            {data && data.hasUserLiked ? (
+              <AiFillHeart
+                style={{ fontSize: "2rem", color: "rgba(220, 38, 38)" }}
+              />
+            ) : (
+              <AiOutlineHeart style={{ fontSize: "2rem" }} />
+            )}
+          </button>
+          <span style={{ fontSize: "1rem", paddingLeft: "16px" }}>
+            {data && data.totalLikes}
+          </span>
+        </>
+      )}
     </div>
   );
 }

@@ -40,20 +40,17 @@ export const getStaticProps = async (context) => {
 
   const headings = await getHeadings(content);
 
-  const api_key = process.env.API_KEY;
-
   return {
     props: {
       data: data,
       content: mdxSource,
-      api_key: api_key,
       id: params.id,
       headings: headings,
     },
   };
 };
 
-function id({ data, content, api_key, id, headings }) {
+function id({ data, content, id, headings }) {
   return (
     <>
       <Head>
@@ -84,14 +81,10 @@ function id({ data, content, api_key, id, headings }) {
         <Navbar />
         <div className="py-24">
           <BlogInner data={data} content={content} headings={headings} />
-          <LikeBtn api_key={api_key} data={data} />
+          <LikeBtn id={id}/>
           <BlogShare data={data} />
 
-          <SWRConfig
-            value={{
-              refreshInterval: 1000,
-            }}
-          >
+          <SWRConfig>
             <Comments id={id} />
           </SWRConfig>
 

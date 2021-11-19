@@ -57,14 +57,17 @@ export default function Home({ blogs }) {
         <div className="px-0.5 md:px-7 pb-14 pt-6 mx-auto">
           <div className="flex flex-wrap">
             {blogs &&
-              blogs.map((blog) => (
-                <BlogHeader
-                  key={blog.data.Id}
-                  data={blog.data}
-                  content={blog.content}
-                  readTime={blog.readTime.text}
-                />
-              ))}
+              blogs.map(
+                (blog) =>
+                  blog.data.isPublished && (
+                    <BlogHeader
+                      key={blog.data.Id}
+                      data={blog.data}
+                      content={blog.content}
+                      readTime={blog.readTime.text}
+                    />
+                  )
+              )}
           </div>
         </div>
 

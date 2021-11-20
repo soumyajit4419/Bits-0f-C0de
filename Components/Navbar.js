@@ -75,8 +75,8 @@ function Navbar() {
   return (
     <>
       <Alert show={viewAlert} type="success" message={alertMessage} />
-      <header className="fixed w-full border-t-4 bg-white dark:bg-gray-900 border-indigo-600 dark:border-indigo-900 shadow dark:shadow-2 z-50">
-        <div className="container mx-auto px-6 py-4">
+      <header className="fixed w-full border-t-4 bg-white dark:bg-dark border-indigo-600 dark:border-indigo-900 shadow dark:shadow-2 z-50">
+        <div className="container mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
             <div>
               <Link href="/">

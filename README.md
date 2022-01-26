@@ -3,7 +3,7 @@
 ## Writing own blogs made easier for everyone!
 
 <h2 align="center">
-  <a href="http://blogs.soumyajit.tech/" target="_blank">blogs.soumyajit.tech</a>
+  <a href="http://blogs.soumya-jit.tech/" target="_blank">blogs.soumyajit.tech</a>
 </h2>
 
 <div align="center">
@@ -29,7 +29,7 @@
 
 ## Built With
 
-My personal blogpage <a href="http://blogs.soumyajit.tech/" target="_blank">blogs.soumyajit.tech</a> which features some of my developer blog posts and experiences.<br/>
+My personal blogpage <a href="http://blogs.soumya-jit.tech/" target="_blank">blogs.soumyajit.tech</a> which features some of my developer blog posts and experiences.<br/>
 
 This project was built using these technologies.
 

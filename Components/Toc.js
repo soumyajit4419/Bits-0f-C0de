@@ -8,7 +8,7 @@ function Toc({ headings }) {
   // }, []);
 
   const [active, setActive] = useState("");
-  console.log(active);
+  // console.log(active);
 
   return (
     <nav className="sticky top-32 overflow-auto toc-inner">

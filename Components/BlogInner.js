@@ -53,7 +53,7 @@ function BlogInner({ data, content, headings }) {
           </div>
         </div>
       </div>
-      <div className="toc ml-auto max-w-xs">
+      <div className="toc ml-auto max-w-sm">
         <Toc headings={headings} />
       </div>
     </div>

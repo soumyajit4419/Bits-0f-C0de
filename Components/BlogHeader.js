@@ -27,9 +27,6 @@ function BlogHeader({ data, content, readTime }) {
 
           <a className="inline-flex items-center">
             <span className="flex-grow flex flex-col pl-4">
-              <span className="title-font font-medium text-sm text-gray-600 dark:text-indigo-200">
-                {data.Author}
-              </span>
               <span className="text-gray-900 text-xs tracking-widest mt-0.5 dark:text-indigo-300">
                 {readTime}
               </span>

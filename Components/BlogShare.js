@@ -13,7 +13,7 @@ function BlogShare({ data }) {
             href={`https://twitter.com/intent/tweet?text=${
               data.Title
             } by @soumyajit4419
-            &url=blogs.soumyajit.tech/blogs/${String(
+            &url=blogs.soumya-jit.tech/blogs/${String(
               data.Title.split(" ").join("-").toLowerCase()
             )}
             &hashtags=${data.Tags.split(" ")}`}

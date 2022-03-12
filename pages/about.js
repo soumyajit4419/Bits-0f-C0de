@@ -1,11 +1,21 @@
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { FaLaptop, FaTwitter } from "react-icons/fa";
+import { getAllTopics } from "../Lib/Data";
 
-function about() {
+export const getStaticProps = () => {
+  const allTopics = getAllTopics();
+  return {
+    props: {
+      topics: allTopics,
+    },
+  };
+};
+
+function about({ topics }) {
   return (
     <div className="min-h-screen relative bg-white dark:bg-gray-900">
-      <Navbar />
+      <Navbar topics={topics} />
       <div className="max-w-2xl pt-20 pb-32 px-6 text-center mx-auto">
         <div className="h-64 w-full justify-center flex">
           <img src="/about.png" className="h-64" />

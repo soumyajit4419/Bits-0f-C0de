@@ -3,18 +3,20 @@ import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import BlogHeader from "../Components/BlogHeader";
-import { getAllBlogPosts } from "../Lib/Data";
+import { getAllBlogPosts, getAllTopics } from "../Lib/Data";
 
 export const getStaticProps = () => {
   const allBlogs = getAllBlogPosts();
+  const allTopics = getAllTopics();
   return {
     props: {
       blogs: allBlogs,
+      topics: allTopics,
     },
   };
 };
 
-export default function Home({ blogs }) {
+export default function Home({ blogs, topics }) {
   return (
     <>
       <Head>
@@ -26,7 +28,7 @@ export default function Home({ blogs }) {
         />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://blogs.soumyajit.tech/" />
+        <meta property="og:url" content="https://blogs.soumya-jit.tech/" />
         <meta property="og:title" content="Bits-0f-C0de 🚀" />
         <meta
           property="og:description"
@@ -38,7 +40,7 @@ export default function Home({ blogs }) {
         />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://blogs.soumyajit.tech/" />
+        <meta property="twitter:url" content="https://blogs.soumya-jit.tech/" />
         <meta property="twitter:title" content="Bits-0f-C0de 🚀" />
         <meta
           property="twitter:description"
@@ -51,7 +53,7 @@ export default function Home({ blogs }) {
       </Head>
 
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
-        <Navbar />
+        <Navbar topics={topics} />
         <Header />
 
         <div className="px-0.5 md:px-7 pb-14 pt-6 mx-auto">

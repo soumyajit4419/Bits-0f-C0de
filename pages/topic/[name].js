@@ -43,7 +43,7 @@ function name({ blogs, topics, topicName }) {
       <Navbar topics={topics} />
       <Header topic={true} topicCount={blogs.length} topicName={topicName} />
 
-      <div className="px-0.5 md:px-7 pb-14 pt-6 mx-auto">
+      <div className="px-0.5 md:px-7 pb-14 pt-6 mx-auto max-w-7xl">
         <div className="flex flex-wrap">
           {blogs &&
             blogs.map(

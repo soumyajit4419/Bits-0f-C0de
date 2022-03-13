@@ -1,4 +1,4 @@
-import { getAllBlogPosts } from "../../Lib/Data";
+import { getAllBlogPosts, getAllTopics } from "../../Lib/Data";
 import { serialize } from "next-mdx-remote/serialize";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
@@ -26,6 +26,7 @@ export const getStaticPaths = () => {
 export const getStaticProps = async (context) => {
   const params = context.params;
   const allBlogs = getAllBlogPosts();
+  const allTopics = getAllTopics();
 
   const page = allBlogs.find(
     (blog) =>
@@ -46,11 +47,12 @@ export const getStaticProps = async (context) => {
       content: mdxSource,
       id: params.id,
       headings: headings,
+      topics: allTopics,
     },
   };
 };
 
-function id({ data, content, id, headings }) {
+function id({ data, content, id, headings, topics }) {
   return (
     <>
       <Head>
@@ -59,7 +61,7 @@ function id({ data, content, id, headings }) {
         <meta name="description" content={data.Abstract} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://blogs.soumyajit.tech/" />
+        <meta property="og:url" content="https://blogs.soumya-jit.tech/" />
         <meta property="og:title" content={data.Title} />
         <meta property="og:description" content={data.Abstract} />
         <meta
@@ -68,7 +70,7 @@ function id({ data, content, id, headings }) {
         />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://blogs.soumyajit.tech/" />
+        <meta property="twitter:url" content="https://blogs.soumya-jit.tech/" />
         <meta property="twitter:title" content={data.Title} />
         <meta property="twitter:description" content={data.Abstract} />
         <meta
@@ -78,10 +80,10 @@ function id({ data, content, id, headings }) {
       </Head>
 
       <div className="min-h-screen relative bg-white dark:bg-gray-900">
-        <Navbar />
+        <Navbar topics={topics} />
         <div className="py-24">
           <BlogInner data={data} content={content} headings={headings} />
-          <LikeBtn id={id}/>
+          <LikeBtn id={id} />
           <BlogShare data={data} />
 
           <SWRConfig>

@@ -44,3 +44,7 @@ button:focus {
 .toc-inner {
   max-height: calc(100vh - 25vh);
 }
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}

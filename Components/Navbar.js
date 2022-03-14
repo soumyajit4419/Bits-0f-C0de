@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BiTerminal } from "react-icons/bi";
 import { SiAboutDotMe } from "react-icons/si";
 import { BiSun, BiMoon } from "react-icons/bi";
-import { VscGithub } from "react-icons/vsc";
+// import { VscGithub } from "react-icons/vsc";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { auth, provider } from "../Firebase/Firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
@@ -12,6 +12,7 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { SiCodefactor } from "react-icons/si";
 import { IoMdArrowDropdown } from "react-icons/io";
 import Alert from "./Alert";
+import { useDispatch } from "react-redux";
 
 function Navbar({ topics }) {
   const [isMounted, setIsMounted] = useState(false);
@@ -19,11 +20,14 @@ function Navbar({ topics }) {
   const { theme, setTheme } = useTheme();
   const [viewAlert, setViewAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsMounted(true);
     const user = JSON.parse(localStorage.getItem("user"));
+
     if (user) {
+      dispatch({ type: "STORE_USER", payload: user });
       setLogin(true);
     }
   }, []);
@@ -38,7 +42,7 @@ function Navbar({ topics }) {
       .then((res) => {
         setLogin(false);
         localStorage.removeItem("user");
-
+        dispatch({ type: "REMOVE_USER" });
         setViewAlert(true);
         setAlertMessage("Hope to see you again !!");
         setTimeout(() => {
@@ -53,15 +57,16 @@ function Navbar({ topics }) {
   const handelSignIn = () => {
     signInWithPopup(auth, provider)
       .then((res) => {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            name: res.user.displayName,
-            photo: res.user.photoURL,
-            token: res.user.accessToken,
-            uid: res.user.uid,
-          })
-        );
+        const userObj = {
+          name: res.user.displayName,
+          photo: res.user.photoURL,
+          token: res.user.accessToken,
+          uid: res.user.uid,
+        };
+
+        localStorage.setItem("user", JSON.stringify(userObj));
+        dispatch({ type: "STORE_USER", payload: userObj });
+
         setLogin(true);
         setViewAlert(true);
         setAlertMessage(`Hello ${res.user.displayName}`);
@@ -92,7 +97,7 @@ function Navbar({ topics }) {
                 </a>
               </Link>
 
-              <div className="dropdown inline-block relative ">
+              <div className="dropdown inline-block relative mx-2">
                 <a className="flex items-center hover:text-indigo-600 text-gray-800 dark:text-gray-50 mx-6 cursor-pointer">
                   <span className="text-xl font-semibold">
                     <SiCodefactor className="text-sm" />
@@ -105,11 +110,11 @@ function Navbar({ topics }) {
                     <IoMdArrowDropdown className="text-xl" />
                   </span>
                 </a>
-                <ul className="dropdown-menu absolute hidden text-gray-700 pt-1 bg-white dark:bg-dark w-40 pt-6">
+                <ul className="dropdown-menu absolute hidden text-gray-700 pt-1 bg-white dark:bg-dark w-40 pt-6 rounded-xl left-1/3">
                   {topics.map((topic) => (
                     <Link href={`/topic/${topic}`} key={topic}>
                       <li className="cursor-pointer">
-                        <a className="rounded-t bg-white dark:bg-dark text-gray-800 dark:text-gray-50 py-2 px-4 block whitespace-no-wrap">
+                        <a className="rounded-xl bg-white dark:bg-dark text-gray-800 dark:text-gray-50 py-2 px-4 block whitespace-no-wrap">
                           {topic}
                         </a>
                       </li>
@@ -132,17 +137,6 @@ function Navbar({ topics }) {
                   )}
                 </span>
               </button>
-
-              <a
-                className="flex items-center mx-2 lg:mx-4 text-gray-800 hover:text-indigo-600 dark:text-gray-50"
-                href="https://github.com/soumyajit4419"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <span className="text-lg">
-                  <VscGithub className="text-lg" />
-                </span>
-              </a>
 
               <button className="flex items-center mx-2 lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50">
                 <span className="text-lg">

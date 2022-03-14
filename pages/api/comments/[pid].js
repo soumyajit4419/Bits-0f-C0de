@@ -12,6 +12,7 @@ export default async (req, res) => {
       userName: doc.data().userName,
       userImage: doc.data().userImage,
       date: doc.data().date.toDate().toDateString(),
+      userId: doc.data().userId,
     };
     comments.push(data);
   });

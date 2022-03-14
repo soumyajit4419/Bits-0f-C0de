@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { checkAuth } from "../Lib/CheckAuth";
 import Alert from "./Alert";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  Timestamp,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../Firebase/Firebase";
 import useSWR, { useSWRConfig } from "swr";
+import { useSelector } from "react-redux";
+import { AiFillDelete } from "react-icons/ai";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -13,6 +21,27 @@ function Comments({ id }) {
 
   const { mutate } = useSWRConfig();
   const { data, error } = useSWR(`/api/comments/${id}`, fetcher);
+  const user = useSelector((state) => state.user);
+
+  const handleDeleteComment = async (commentId) => {
+    const user = checkAuth();
+
+    if (!user) {
+      setViewAlert(true);
+
+      setTimeout(() => {
+        setViewAlert(false);
+      }, 2000);
+
+      return;
+    }
+
+    if (user) {
+      const ref = doc(db, "posts", id, "comments", commentId);
+      const response = await deleteDoc(ref);
+      mutate(`/api/comments/${id}`);
+    }
+  };
 
   const handelPost = async (e) => {
     e.preventDefault();
@@ -41,7 +70,7 @@ function Comments({ id }) {
 
       const ref = collection(db, "posts", id, "comments");
       const docRef = await addDoc(ref, docData);
-      mutate(`/api/post/${id}`);
+      mutate(`/api/comments/${id}`);
     }
   };
 
@@ -96,13 +125,21 @@ function Comments({ id }) {
                       alt={comment.userName}
                     />
                   </div>
-                  <div className="flex-1 border border-gray-300 dark:border-gray-500 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                  <div className="flex-1 border border-gray-300 dark:border-gray-500 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed relative ">
                     <strong className="text-gray-700 dark:text-gray-200">
                       {comment.userName}
                     </strong>{" "}
                     <span className="text-xs text-gray-500 dark:text-gray-400">
                       {comment.date.split(" ").slice(1, 4).join("-")}
                     </span>
+                    {comment && user && comment.userId === user.uid && (
+                      <span
+                        className="absolute right-6 top-5 cursor-pointer"
+                        onClick={(e) => handleDeleteComment(comment.id)}
+                      >
+                        <AiFillDelete />
+                      </span>
+                    )}
                     {comment.comment.split("\n").map((com, index) => (
                       <p
                         className="text-sm text-gray-600 dark:text-gray-300"

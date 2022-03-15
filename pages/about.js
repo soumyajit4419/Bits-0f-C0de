@@ -40,7 +40,7 @@ function about({ topics }) {
             <a
               rel="noopener noreferrer"
               target="_blank"
-              href="https://soumyajit.tech/"
+              href="https://soumya-jit.tech/"
             >
               See My Works
             </a>

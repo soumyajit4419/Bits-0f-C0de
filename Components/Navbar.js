@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { BiTerminal } from "react-icons/bi";
-import { SiAboutDotMe } from "react-icons/si";
-import { BiSun, BiMoon } from "react-icons/bi";
-// import { VscGithub } from "react-icons/vsc";
+import { HiSun, HiMoon } from "react-icons/hi";
+import { CgUserlane } from "react-icons/cg";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { auth, provider } from "../Firebase/Firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
@@ -124,43 +123,44 @@ function Navbar({ topics }) {
               </div>
             </div>
 
-            <div className="flex items-center -mx-2">
+            <div className="flex items-center -mx-3">
               <button
                 className="flex items-center mx-2 lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50"
                 onClick={toggleTheme}
               >
                 <span className="text-lg">
                   {isMounted && theme === "dark" ? (
-                    <BiSun className="text-xl" />
+                    <HiSun className="text-xl" />
                   ) : (
-                    <BiMoon className="text-xl" />
-                  )}
-                </span>
-              </button>
-
-              <button className="flex items-center mx-2 lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50">
-                <span className="text-lg">
-                  {isLogin ? (
-                    <IoLogOutOutline
-                      className="text-xl"
-                      onClick={handelSignOut}
-                    />
-                  ) : (
-                    <AiOutlineGoogle
-                      className="text-xl"
-                      onClick={handelSignIn}
-                    />
+                    <HiMoon className="text-xl" />
                   )}
                 </span>
               </button>
 
               <Link href="/about">
-                <a className="flex items-center mx-2  lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50">
-                  <span className="text-xl ">
-                    <SiAboutDotMe className="text-xl" />
+                <a className="flex items-center mx-2 lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50">
+                  <span className="text-xl">
+                    <CgUserlane className="text-xl" />
                   </span>
                 </a>
               </Link>
+
+              <button className="flex items-center mx-2 lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50">
+                {isLogin ? (
+                  <span
+                    className="md:flex items-center"
+                    onClick={handelSignOut}
+                  >
+                    <span className="hidden md:block text-sm font-medium">Sign Out</span>
+                    <IoLogOutOutline className="text-xl mx-1" />
+                  </span>
+                ) : (
+                  <span className="md:flex items-center" onClick={handelSignIn}>
+                    <span className="hidden md:block text-sm font-medium"> Sign In</span>
+                    <AiOutlineGoogle className="text-xl mx-1" />
+                  </span>
+                )}
+              </button>
             </div>
           </div>
         </div>

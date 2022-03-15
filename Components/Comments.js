@@ -18,6 +18,8 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 function Comments({ id }) {
   const [comment, setComment] = useState("");
   const [viewAlert, setViewAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("");
 
   const { mutate } = useSWRConfig();
   const { data, error } = useSWR(`/api/comments/${id}`, fetcher);
@@ -27,6 +29,8 @@ function Comments({ id }) {
     const user = checkAuth();
 
     if (!user) {
+      setAlertMessage("Please SignIn to comment");
+      setAlertType("error");
       setViewAlert(true);
 
       setTimeout(() => {
@@ -39,6 +43,14 @@ function Comments({ id }) {
     if (user) {
       const ref = doc(db, "posts", id, "comments", commentId);
       const response = await deleteDoc(ref);
+      setAlertMessage("Comment deleted successfully..");
+      setAlertType("success");
+      setViewAlert(true);
+
+      setTimeout(() => {
+        setViewAlert(false);
+      }, 2000);
+
       mutate(`/api/comments/${id}`);
     }
   };
@@ -50,7 +62,13 @@ function Comments({ id }) {
     const user = checkAuth();
 
     if (!user) {
+      setAlertMessage("Please SignIn to comment");
+      setAlertType("error");
       setViewAlert(true);
+
+      setTimeout(() => {
+        setViewAlert(false);
+      }, 2000);
 
       setTimeout(() => {
         setViewAlert(false);
@@ -70,13 +88,20 @@ function Comments({ id }) {
 
       const ref = collection(db, "posts", id, "comments");
       const docRef = await addDoc(ref, docData);
+      setAlertMessage("Comment posted successfully..");
+      setAlertType("success");
+      setViewAlert(true);
+
+      setTimeout(() => {
+        setViewAlert(false);
+      }, 2000);
       mutate(`/api/comments/${id}`);
     }
   };
 
   return (
     <>
-      <Alert show={viewAlert} type="error" message="Please SignIn to comment" />
+      <Alert show={viewAlert} type={alertType} message={alertMessage} />
       <div className="flex flex-wrap mb-6 mt-6 mx-auto max-w-screen-md">
         <div className="relative container p-1 appearance-none label-floating">
           <form>

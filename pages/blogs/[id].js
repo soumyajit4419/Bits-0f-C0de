@@ -7,7 +7,7 @@ import BlogInner from "../../Components/BlogInner";
 import BlogShare from "../../Components/BlogShare";
 import Comments from "../../Components/Comments";
 import { SWRConfig } from "swr";
-import headingId from "remark-heading-id";
+import { remarkHeadingId } from "remark-custom-heading-id";
 import { getHeadings } from "../../Lib/GetHeadings";
 import LikeBtn from "../../Components/LikeBtn";
 
@@ -36,7 +36,7 @@ export const getStaticProps = async (context) => {
   const { data, content } = page;
   const mdxSource = await serialize(content, {
     scope: data,
-    mdxOptions: { remarkPlugins: [headingId] },
+    mdxOptions: { remarkPlugins: [remarkHeadingId] },
   });
 
   const headings = await getHeadings(content);

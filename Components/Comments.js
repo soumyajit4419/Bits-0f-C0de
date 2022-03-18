@@ -20,6 +20,7 @@ function Comments({ id }) {
   const [viewAlert, setViewAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState("");
+  const [textAreaHeight, setTextAreaHeight] = useState(100);
 
   const { mutate } = useSWRConfig();
   const { data, error } = useSWR(`/api/comments/${id}`, fetcher);
@@ -106,14 +107,18 @@ function Comments({ id }) {
         <div className="relative container p-1 appearance-none label-floating">
           <form>
             <textarea
-              className="autoexpand tracking-wide py-2 px-4 mb-3 leading-relaxed appearance-none block w-full bg-gray-100 border border-gray-100 dark:bg-gray-800 dark:border-gray-800 rounded  focus:outline-none focus:bg-white focus:border-gray-300 dark:focus:bg-gray-900 dark:focus:border-gray-700"
+              className="resize-none tracking-wide py-2 px-4 mb-3 leading-relaxed appearance-none block w-full bg-gray-100 border border-gray-100 dark:bg-gray-800 dark:border-gray-800 rounded  focus:outline-none focus:bg-white focus:border-gray-300 dark:focus:bg-gray-900 dark:focus:border-gray-700"
               id="message"
               type="text"
               placeholder="What are your thoughts..?"
               rows="3"
               value={comment}
+              style={{ height: textAreaHeight }}
               onChange={(e) => {
                 setComment(e.target.value);
+                setTextAreaHeight(
+                  e.target.scrollHeight > 100 ? e.target.scrollHeight : 100
+                );
               }}
             />
             <div className="text-right">

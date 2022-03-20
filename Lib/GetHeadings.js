@@ -7,8 +7,13 @@ export async function getHeadings(source) {
 
   // Transform the string '## Some text' into an object
   // with the shape '{ text: 'Some text', level: 2 }'
+
+  let uid = 1000;
   return headingLines.map((raw) => {
-    const text = raw.replace(/^###*\s/, "").replace(/ *\{[^)]*\} */g, "").trim();
+    const text = raw
+      .replace(/^###*\s/, "")
+      .replace(/ *\{[^)]*\} */g, "")
+      .trim();
     // I only care about h2 and h3.
     // If I wanted more levels, I'd need to count the
     // number of #s.
@@ -19,7 +24,7 @@ export async function getHeadings(source) {
       .join("-");
 
     const level = raw.slice(0, 3) === "###" ? 3 : 2;
-
-    return { text, level, id };
+    uid++;
+    return { text, level, id, uid };
   });
 }

@@ -38,7 +38,7 @@ function Footer() {
             </a>
             <a
               className="ml-4 text-gray-50"
-              href="https://www.instagram.com/s.o.u.m.y.a_j.i.t/"
+              href="https://www.instagram.com/soumyajit4419/"
               rel="noopener noreferrer"
               target="_blank"
             >

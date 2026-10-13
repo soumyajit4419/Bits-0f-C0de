@@ -61,7 +61,17 @@ Run
 npm install
 ```
 
+### 🔑 Environment Variables Setup
+
+Copy `.env.example` to `.env.local` and configure your Firebase credentials:
+
+```bash
+cp .env.example .env.local
 ```
+
+For detailed step-by-step instructions on setting up Firebase keys and resolving `auth/invalid-api-key`, refer to **[FIREBASE_SETUP.md](./FIREBASE_SETUP.md)**.
+
+```bash
 npm run dev
 ```
 

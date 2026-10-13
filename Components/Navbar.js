@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { BiTerminal } from "react-icons/bi";
 import { HiSun, HiMoon } from "react-icons/hi";
 import { CgUserlane } from "react-icons/cg";
-import { AiOutlineGoogle } from "react-icons/ai";
+import { AiOutlineGoogle, AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import { auth, provider } from "../Firebase/Firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { IoLogOutOutline } from "react-icons/io5";
@@ -20,6 +21,13 @@ function Navbar({ topics }) {
   const [viewAlert, setViewAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  // Search state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+  const searchRef = useRef(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -30,6 +38,51 @@ function Navbar({ topics }) {
       setLogin(true);
     }
   }, []);
+
+  // Close search dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setShowResults(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Fetch search results as user types
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setSearchResults([]);
+      setShowResults(false);
+      return;
+    }
+
+    const debounceTimer = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
+        const data = await res.json();
+        setSearchResults(data.results);
+        setShowResults(true);
+      } catch (err) {
+        console.log(err);
+      }
+    }, 300);
+
+    return () => clearTimeout(debounceTimer);
+  }, [searchQuery]);
+
+  const handleSearchClear = () => {
+    setSearchQuery("");
+    setSearchResults([]);
+    setShowResults(false);
+  };
+
+  const handleResultClick = (slug) => {
+    setSearchQuery("");
+    setShowResults(false);
+    router.push(`/blogs/${slug}`);
+  };
 
   const toggleTheme = () => {
     if (isMounted) {
@@ -124,6 +177,63 @@ function Navbar({ topics }) {
             </div>
 
             <div className="flex items-center -mx-3">
+              {/* Search Bar */}
+              <div className="relative mx-2 lg:mx-4" ref={searchRef}>
+                <div className="flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg px-3 py-1.5">
+                  <AiOutlineSearch className="text-gray-500 dark:text-gray-400 text-lg" />
+                  <input
+                    type="text"
+                    placeholder="Search articles..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape") {
+                        handleSearchClear();
+                      }
+                    }}
+                    className="bg-transparent border-none outline-none ml-2 text-sm text-gray-800 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 w-32 md:w-48"
+                  />
+                  {searchQuery && (
+                    <button onClick={handleSearchClear}>
+                      <AiOutlineClose className="text-gray-500 dark:text-gray-400 text-sm hover:text-indigo-600" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Search Results Dropdown */}
+                {showResults && (
+                  <div className="absolute top-full mt-2 w-72 md:w-96 right-0 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 max-h-80 overflow-y-auto z-50">
+                    {searchResults.length > 0 ? (
+                      searchResults.map((result) => (
+                        <div
+                          key={result.slug}
+                          className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer border-b border-gray-100 dark:border-gray-700 last:border-b-0"
+                          onClick={() => handleResultClick(result.slug)}
+                        >
+                          <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+                            {result.title}
+                          </p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">
+                            {result.abstract}
+                          </p>
+                          <div className="flex items-center mt-1 space-x-2">
+                            <span className="text-xs bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded">
+                              {result.topic}
+                            </span>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="px-4 py-6 text-center">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          No articles found for &quot;{searchQuery}&quot;
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
               <button
                 className="flex items-center mx-2 lg:mx-4 text-base text-gray-800 hover:text-indigo-600 dark:text-gray-50"
                 onClick={toggleTheme}
